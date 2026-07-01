@@ -1,0 +1,13 @@
+# render.yaml — Render Auto-Deploy (Free Tier)
+# Push this file to your GitHub repo root
+
+services:
+  - type: web
+    name: house-price-predictor
+    runtime: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "streamlit run app.py --server.port $PORT --server.address 0.0.0.0"
+    plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"

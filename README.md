@@ -1,146 +1,99 @@
-# House_Price_prediction
-Project Overview
+# 🏠 House Price Predictor — Live Demo
 
-This project aims to predict house prices based on various property features such as area, number of bedrooms, bathrooms, stories, parking availability, furnishing status, and other amenities. The project demonstrates a complete machine learning workflow including data preprocessing, exploratory data analysis (EDA), model building, evaluation, and visualization.
-The goal is to identify the key factors that influence house prices and build predictive models that can estimate property values accurately.
+> Predict house prices based on property features using Machine Learning | Built by **Utkarsh Patil**
 
-Dataset Information
+**Live Demo:** https://house-price-predictor.onrender.com
 
-The dataset contains 545 residential properties with multiple features describing each house.
+---
 
-Target Variable :
+## 🎯 What This Project Does
 
-Price – House selling price
+- **Predict house prices** — enter property details and get an instant price estimate
+- **Interactive EDA dashboard** — explore price distributions, correlations, and breakdowns
+- **Model comparison** — Linear Regression vs Random Forest with full metrics
+- **Feature insights** — understand which factors drive house prices most
 
-Features :
-Area
-Bedrooms
-Bathrooms
-Stories
-Main Road Access
-Guest Room
-Basement
-Hot Water Heating
-Air Conditioning
-Parking
-Preferred Area
-Furnishing Status
-And other property-related attributes
+---
 
+## 📁 Project Structure
 
-Project Workflow
+```
+house_price_project/
+├── app.py              ← Streamlit web app (main entry point)
+├── train_model.py      ← ML training pipeline
+├── best_model.pkl      ← Trained Random Forest model
+├── linear_model.pkl    ← Trained Linear Regression model
+├── feature_names.pkl   ← Feature column names (44 after encoding)
+├── model_results.json  ← Model evaluation metrics
+├── Housing.csv         ← Dataset (545 properties)
+├── requirements.txt    ← Python dependencies
+├── render.yaml         ← Render deployment config
+└── README.md
+```
 
-1. Data Collection
-Loaded the housing dataset using Pandas.
+---
 
-2. Data Exploration
-Examined dataset shape and structure.
-Checked column names and data types.
-Generated descriptive statistics.
-Verified data quality.
+## 📊 Model Performance
 
-3. Data Cleaning
-Checked for missing values.
-Checked for duplicate records.
-Confirmed the dataset was clean and ready for modeling.
+| Model | MAE | RMSE | R² Score |
+|-------|-----|------|----------|
+| **Linear Regression** 🏆 | ₹9,70,043 | ₹13,24,507 | **0.653** |
+| Random Forest | ₹10,21,546 | ₹14,00,566 | 0.610 |
 
-4. Data Preprocessing
-Converted categorical variables into numerical format using One-Hot Encoding (pd.get_dummies()).
-Separated features and target variable.
+---
 
-5. Train-Test Split
-Split the dataset into:
-80% Training Data
-20% Testing Data
-Used a fixed random state for reproducibility.
+## 🚀 Deploy to Render (Free) — 5 Minutes
 
-6. Model Building
+### Step 1 — Update Your GitHub Repo
 
-Linear Regression
-A baseline regression model was trained to understand linear relationships between features and house prices.
+1. Go to: https://github.com/utkarshpatilds/House_Price_prediction
+2. Click **"Add file"** → **"Upload files"**
+3. Drag and drop ALL files from the `house_price_project` folder:
+   - `app.py`
+   - `best_model.pkl`
+   - `linear_model.pkl`
+   - `feature_names.pkl`
+   - `model_results.json`
+   - `Housing.csv`
+   - `requirements.txt`
+   - `render.yaml`
+4. Commit directly to `main` branch
 
-Random Forest Regressor
-An ensemble learning model was trained to capture complex and non-linear relationships within the dataset.
+### Step 2 — Deploy on Render
 
-7. Model Evaluation
-The following metrics were used:
-MAE (Mean Absolute Error)
-RMSE (Root Mean Squared Error)
-R² Score (Coefficient of Determination)
+1. Go to [render.com](https://render.com) → Sign up with GitHub
+2. Click **"New +"** → **"Web Service"**
+3. Connect your GitHub repo (`House_Price_prediction`)
+4. Fill in settings:
 
-8. Data Visualization
-The project includes:
-House Price Distribution
-Correlation Heatmap
-Actual vs Predicted Prices
-Feature Importance Analysis
+| Field | Value |
+|-------|-------|
+| **Name** | `house-price-predictor` |
+| **Build Command** | `pip install -r requirements.txt` |
+| **Start Command** | `streamlit run app.py --server.port $PORT --server.address 0.0.0.0` |
+| **Plan** | `Free` |
 
-Technologies Used :
-Python
-Pandas
-NumPy
-Matplotlib
-Seaborn
-Scikit-Learn
-Jupyter Notebook
+5. Click **"Create Web Service"** → Wait 2-3 minutes → **Live!** 🎉
 
+---
 
-Project Structure
-House-Price-Prediction/
-│
-├── Housing.csv
-├── House_Price_Prediction.ipynb
-├── README.md
-│
-└── images/
-    ├── price_distribution.png
-    ├── correlation_heatmap.png
-    ├── actual_vs_predicted.png
-    └── feature_importance.png
+## 📝 Resume Write-up
 
+```
+House Price Prediction | Live Demo: https://house-price-predictor.onrender.com
+GitHub: https://github.com/utkarshpatilds/House_Price_prediction
 
-Key Findings
-The dataset contained 545 records with no missing values and no duplicate entries.
-Property area showed the strongest relationship with house prices.
-Other important features included:
-Bathrooms
-Air Conditioning
-Number of Stories
-Parking Availability
-Preferred Area
+• Built end-to-end ML pipeline to predict house prices (545 properties, 12 features)
+• Compared Linear Regression vs Random Forest — Linear Regression deployed (R² = 0.653)
+• Built interactive Streamlit web app with EDA dashboard, model comparison, and live predictions
+• Key price drivers: Area (46.8%), Bathrooms (15.1%), Air Conditioning, Parking, Stories
+• Tech Stack: Python, Scikit-learn, Streamlit, Pandas, Matplotlib, Seaborn
+```
 
-Houses with larger areas and additional amenities generally had higher market values.
-Feature importance analysis confirmed that property size and amenities significantly influence pricing.
+---
 
-Results
-Two machine learning models were trained and evaluated:
+## 👤 Author
 
-| Model                   | Purpose                   |
-| ----------------------- | ------------------------- |
-| Linear Regression       | Baseline predictive model |
-| Random Forest Regressor | Non-linear ensemble model |
-
-The model performance was evaluated using MAE, RMSE, and R² Score to determine prediction accuracy.
-
-
-Business Impact
-A house price prediction system can help:
-Real estate companies estimate property values.
-Buyers make informed purchasing decisions.
-Sellers set competitive prices.
-Investors identify high-value properties.
-Banks evaluate collateral value during loan approvals.
-Future Improvements
-Hyperparameter tuning using GridSearchCV.
-Cross-validation for robust evaluation.
-Outlier detection and treatment.
-Feature engineering.
-
-Conclusion
-
-This project successfully demonstrates an end-to-end machine learning pipeline for house price prediction. After cleaning and preprocessing the data, multiple regression models were trained and evaluated. The analysis revealed that factors such as property area, bathrooms, parking facilities, and air conditioning play a major role in determining house prices. The project provides practical insights into real estate valuation while showcasing essential data analytics and machine learning skills.
-
-
-Author :
-Utkarsh Patil
-B.Tech CSE (Data Science)
+**Utkarsh Patil** — B.Tech CSE (Data Science)
+- GitHub: [utkarshpatilds](https://github.com/utkarshpatilds)
+- Project: [House_Price_prediction](https://github.com/utkarshpatilds/House_Price_prediction)

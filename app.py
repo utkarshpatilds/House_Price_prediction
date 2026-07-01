@@ -207,18 +207,35 @@ if page == "🏠 Home":
 
     with col_right:
         st.markdown("### 🎯 Model Results")
-        st.dataframe(
-            pd.DataFrame(results).drop('best_model', errors='ignore').drop('feature_names', errors='ignore').T,
-            use_container_width=True,
-            height=200
-        )
-        st.markdown("""
-        <div class='success-box'>
-            🏆 <b>Best Model:</b> Linear Regression<br>
-            <span style="font-size:1.5rem; color:#4ECDC4">R² = 65.3%</span><br>
-            <small>Explains 65% of price variation</small>
-        </div>
-        """, unsafe_allow_html=True)
+
+# Keep only dictionary values (model metrics)
+model_results = {
+    k: v
+    for k, v in results.items()
+    if isinstance(v, dict)
+}
+
+st.dataframe(
+    pd.DataFrame(model_results).T,
+    use_container_width=True,
+    height=200
+)
+
+best_model = results.get("best_model", "Unknown")
+best_score = "N/A"
+
+if best_model in model_results:
+    best_score = model_results[best_model].get("R2 Score", "N/A")
+
+st.markdown(f"""
+<div class='success-box'>
+    🏆 <b>Best Model:</b> {best_model}<br>
+    <span style="font-size:1.5rem; color:#4ECDC4">
+        R² = {best_score}
+    </span><br>
+    <small>Best performing regression model</small>
+</div>
+""", unsafe_allow_html=True)
 
         st.markdown("### 🛠️ Tech Stack")
         st.markdown("""

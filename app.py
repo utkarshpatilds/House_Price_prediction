@@ -596,12 +596,30 @@ elif page == "📈 Model Performance":
     st.markdown("---")
     st.subheader("Model Comparison Chart")
 
-    # Bar chart comparison
-    models_list = list(results.keys())
-    mae_vals = [results[m]['MAE'] for m in models_list]
-    rmse_vals = [results[m]['RMSE'] for m in models_list]
-    r2_vals = [results[m]['R2'] for m in models_list]
+     # Keep only actual model dictionaries
+    model_results = {
+        k: v
+        for k, v in results.items()
+        if isinstance(v, dict)
+    }
 
+    # Keep only actual model dictionaries
+    model_results = {
+        k: v
+        for k, v in results.items()
+        if isinstance(v, dict)
+    }
+
+    models_list = list(model_results.keys())
+
+    mae_vals = [model_results[m]["MAE"] for m in models_list]
+    rmse_vals = [model_results[m]["RMSE"] for m in models_list]
+    r2_vals = [model_results[m]["R2"] for m in models_list]
+    # Dynamic labels
+    labels = [m.replace("_", " ") for m in models_list]
+
+    # Dynamic colors
+    colors = ["#4ECDC4", "#FF6B6B", "#FFD166", "#6A5ACD"][:len(models_list)]
     fig, axes = plt.subplots(1, 3, figsize=(15, 5))
     fig.patch.set_facecolor('#1A1F2E')
     for ax in axes:
@@ -612,8 +630,7 @@ elif page == "📈 Model Performance":
         ax.spines['left'].set_color('#2D3748')
         ax.tick_params(colors='#A0AEC0')
 
-    colors = ['#4ECDC4', '#FF6B6B']
-    labels = ['Linear Regression', 'Random Forest']
+    
 
     axes[0].bar(labels, mae_vals, color=colors, edgecolor='white')
     axes[0].set_title("MAE (Lower is Better)", color='white', pad=10)
@@ -641,11 +658,16 @@ elif page == "📈 Model Performance":
     st.pyplot(fig)
 
     st.markdown("---")
-    st.markdown("""
+    best_model = results.get("best_model", models_list[0])
+    best_r2 = model_results[best_model]["R2"]
+
+    st.markdown(f"""
     <div class='success-box'>
-        ✅ <b>Winner: Linear Regression</b> with R² = 65.3%<br>
-        <small>Linear Regression outperforms Random Forest on this dataset, explaining 65% of price variation.
-        The relationship between features and price is largely linear in this data.</small>
+        ✅ <b>Winner: {best_model}</b> with R² = {best_r2:.3f}<br>
+        <small>
+        {best_model} achieved the highest R² score on the test dataset,
+         making it the best-performing regression model.
+        </small>
     </div>
     """, unsafe_allow_html=True)
 

@@ -417,7 +417,7 @@ elif page == "📊 EDA Dashboard":
             corr, annot=True, fmt=".2f", cmap="coolwarm",
             center=0, ax=ax,
             annot_kws={"color": "white", "size": 9},
-            cbar_kws={'label': 'Correlation', 'label_color': 'white'},
+            cbar_kws={'label': 'Correlation'},
             linewidths=0.5, linecolor='#2D3748'
         )
         ax.tick_params(colors='#A0AEC0', labelsize=9)

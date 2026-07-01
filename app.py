@@ -562,7 +562,9 @@ elif page == "📈 Model Performance":
     """)
 
     # Metrics table
-    metrics_df = pd.DataFrame(results).drop('best_model', errors='ignore').drop('feature_names', errors='ignore').T
+    model_results = {k: v for k, v in results.items() if isinstance(v, dict)}
+
+    metrics_df = pd.DataFrame(model_results).T
     metrics_df.index.name = 'Model'
     st.dataframe(
         metrics_df.style
